@@ -12,6 +12,7 @@ function GetSelectedTextValue(select_template) {
                     <label class="form-control-label">custom field</label>
                     <input class="form-control" type="text" name="${selectedValue}">
                 </div>  
+                
               </div>
           `;
         }
