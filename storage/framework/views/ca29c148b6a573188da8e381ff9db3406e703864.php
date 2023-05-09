@@ -1922,7 +1922,7 @@ unset($__errorArgs, $__bag); ?>
                                 <div class="col-lg-12">
                                     <div class="card">
                                         
-                                        <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+                                        <iframe src="/filemanager" style="width: 100%; height: 600px; overflow: hidden; border: none;"></iframe>
 <!--                                        <?php echo e(Form::open(['route' => ['business.seo-setting', $business->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])); ?>
 
                                         <div class="card-body">

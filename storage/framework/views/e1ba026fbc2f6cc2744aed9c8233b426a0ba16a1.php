@@ -1,0 +1,619 @@
+<?php
+$social_no = 1;
+$appointment_no = 0;
+$service_row_no = 0;
+$testimonials_row_no = 0;
+$path = isset($business->banner) && !empty($business->banner) ? asset(Storage::url('card_banner/' . $business->banner)) : asset('custom/img/placeholder-image.jpg');
+$no = 1;
+$stringid = $business->id;
+$is_enable = false;
+$is_enable_appoinment = false;
+$is_enable_service = false;
+$is_enable_testimonials = false;
+$is_enable_sociallinks = false;
+$is_empty_description = false;
+$is_custom_html_enable = false;
+$custom_html = $business->custom_html_text;
+$is_branding_enabled = false;
+$branding = $business->branding_text;
+$is_gdpr_enabled = false;
+$gdpr_text = $business->gdpr_text;
+$card_theme = json_decode($business->card_theme);
+$banner=\App\Models\Utility::get_file('card_banner/');
+$logo=\App\Models\Utility::get_file('card_logo/');
+$image=\App\Models\Utility::get_file('testimonials_images/');
+$s_image=\App\Models\Utility::get_file('service_images/');
+
+if (!is_null($business_hours) && !is_null($businesshours)) {
+$businesshours['is_enabled'] == '1' ? ($is_enable = true) : ($is_enable = false);
+}
+
+if (!is_null($appoinment_hours) && !is_null($appoinment)) {
+$appoinment['is_enabled'] == '1' ? ($is_enable_appoinment = true) : ($is_enable_appoinment = false);
+}
+
+if (!is_null($services_content) && !is_null($services)) {
+$services['is_enabled'] == '1' ? ($is_enable_service = true) : ($is_enable_service = false);
+}
+
+if (!is_null($testimonials_content) && !is_null($testimonials)) {
+$testimonials['is_enabled'] == '1' ? ($is_enable_testimonials = true) : ($is_enable_testimonials = false);
+}
+
+if (!is_null($social_content) && !is_null($sociallinks)) {
+$sociallinks['is_enabled'] == '1' ? ($is_enable_sociallinks = true) : ($is_enable_sociallinks = false);
+}
+
+if(!is_null($custom_html) && !is_null($customhtml)){
+$customhtml->is_custom_html_enabled == '1' ? $is_custom_html_enable = true : $is_custom_html_enable = false;
+}
+
+if (!is_null($business->is_gdpr_enabled) && !is_null($business->is_gdpr_enabled)) {
+!empty($business->is_gdpr_enabled) && $business->is_gdpr_enabled == 'on' ? ($is_gdpr_enabled = true) : ($is_gdpr_enabled = false);
+}
+if(!is_null($business->is_branding_enabled) && !is_null($business->is_branding_enabled)){
+(!empty($business->is_branding_enabled) && $business->is_branding_enabled == "on") ? $is_branding_enabled = true : $is_branding_enabled = false;
+}
+else {
+
+$is_branding_enabled=false;
+}
+if (isset($color)) {
+$business->theme_color = $color;
+}
+$color = substr($business->theme_color, 0, 6);
+if (!empty($business->description)) {
+$is_empty_description = true;
+}
+$SITE_RTL = Cookie::get('SITE_RTL');
+if($SITE_RTL == ''){
+$SITE_RTL = 'off';
+}
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo e($business->title); ?></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="HandheldFriendly" content="True">
+
+    <meta name="author" content="<?php echo e($business->title); ?>">
+    <meta name="keywords" content="<?php echo e($business->meta_keyword); ?>">
+    <meta name="description" content="<?php echo e($business->meta_description); ?>">
+
+  <!-- Favicons -->
+  <link href="<?php echo e(asset('custom/theme11/assets/img/favicon.png')); ?>" rel="icon">
+  <link href="<?php echo e(asset('custom/theme11/assets/img/apple-touch-icon.png')); ?>" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/bootstrap/css/bootstrap.min.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/bootstrap-icons/bootstrap-icons.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/boxicons/css/boxicons.min.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/glightbox/css/glightbox.min.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/remixicon/remixicon.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/swiper/swiper-bundle.min.css')); ?>" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="<?php echo e(asset('custom/theme11/assets/css/style.css')); ?>" rel="stylesheet">
+
+  <style>
+    .myimg {
+      object-fit: cover;
+      object-position: 100% 0;
+      width: 100%;
+      height: 300px;
+    }
+
+    .myaboutimg {
+      object-fit: cover;
+      object-position: 100% 0;
+      width: 100%;
+      height: 400px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Hero Section ======= -->
+  
+  <section id="hero">
+      
+    <div class="hero-container">
+      <h1 id="<?php echo e($stringid . '_title'); ?>_preview" ><?php echo e($business->title); ?></h1>
+      <h2 id="<?php echo e($stringid . '_description'); ?>_preview" ><?php echo e($business->description); ?></h2>
+      <p id="<?php echo e($stringid . '_subtitle'); ?>_preview"><?php echo e($business->sub_title); ?></p>
+
+    </div>
+  </section><!-- End Hero -->
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center ">
+    <div class="container-fluid d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Valera</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="custom/theme11/assets/img/logo.png') }}" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="#our-values">Services</a></li>
+          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Testimonials</a></li>
+
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <div class="header-social-links d-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-1.jpg')); ?>" class="img-fluid myaboutimg" alt=""></div>
+
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+
+
+    <!-- ======= Our Values Section ======= -->
+    <section id="our-values" class="our-values">
+      <div class="container">
+        <div class="section-title">
+          <h2>Services</h2>
+        </div>
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card" style='background-image: url(<?php echo e(asset('custom/theme11/assets/img/our-values-1.jpg')); ?>);'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Lorem Ipsum</a></h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua.</p>
+                <div class="read-more"><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-arrow-right"></i> Get Quote</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <div class="card" style='background-image: url(<?php echo e(asset('custom/theme11/assets/img/our-values-2.jpg')); ?>);'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">
+                    Dolor Sitema</a></h5>
+                <p class="card-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem doloremque laudantium, totam rem.</p>
+                <div class="read-more"><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-arrow-right"></i> Get Quote</a></div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4">
+            <div class="card" style='background-image: url(<?php echo e(asset('custom/theme11/assets/img/our-values-3.jpg')); ?>);'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Sed ut perspiciatis</a></h5>
+                <p class="card-text">Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores.</p>
+                <div class="read-more"><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-arrow-right"></i> Get Quote</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4">
+            <div class="card" style='background-image: url(<?php echo e(asset('custom/theme11/assets/img/testimonials-1.jpg')); ?>);'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">
+                    Nemo Enim</a></h5>
+                <p class="card-text">Nostrum eum sed et autem dolorum perspiciatis. Magni porro quisquam laudantium voluptatem.</p>
+                <div class="read-more"><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-arrow-right"></i> Get Quote</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Our Values Section -->
+
+
+
+    <!-- ======= Services Section ======= -->
+    <!-- End Services Section -->
+
+
+
+    <!-- ======= Cta Section ======= -->
+
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Portfolio</h2>
+        </div>
+
+
+
+        <div class="row portfolio-container">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-1.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>App 1</h4>
+              <p>App</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-1.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-2.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Web</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-2.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-3.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>App 2</h4>
+              <p>App</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-3.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-4.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 2</h4>
+              <p>Card</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-4.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-5.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Web 2</h4>
+              <p>Web</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-5.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-6.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>App 3</h4>
+              <p>App</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-6.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-7.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 1</h4>
+              <p>Card</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-7.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-8.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 3</h4>
+              <p>Card</p>
+              <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-8.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+              <div class="portfolio-img"><img src="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-9.jpg')); ?>" class="img-fluid myimg" alt=""></div>
+              <div class="portfolio-info">
+                <h4>Web 3</h4>
+                <p>Web</p>
+                <a href="<?php echo e(asset('custom/theme11/assets/img/portfolio/portfolio-9.jpg')); ?>" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Testimonials</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@example.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+  <!-- Video Modal Start -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Get Quote</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Phone:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary">Send message</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Video Modal End -->
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+
+      <div class="container">
+
+        <div class="row  justify-content-center">
+          <div class="col-lg-4">
+            <div class="copyright">
+              &copy; Copyright <strong><span>Valera</span></strong>. All Rights Reserved
+            </div>
+          </div>
+          <div class="col-lg-4">
+
+          </div>
+          <div class="col-lg-4">
+            <div class="credits">
+              Designed by <a href="https://webzfactory.com/">Webzfactory</a>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+
+
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <link href="<?php echo e(asset('custom/theme11/assets/vendor/bootstrap/css/bootstrap.min.css')); ?>" rel="stylesheet">
+  <!-- Vendor JS Files -->
+  <script src="<?php echo e(asset('custom/theme11/assets/vendor/purecounter/purecounter.js')); ?>"></script>
+  <script src="<?php echo e(asset('custom/theme11/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('custom/theme11/assets/vendor/glightbox/js/glightbox.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('custom/theme11/assets/vendor/isotope-layout/isotope.pkgd.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('custom/theme11/assets/vendor/swiper/swiper-bundle.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('custom/theme11/assets/vendor/php-email-form/validate.js')); ?>"></script>
+
+  <!-- Template Main JS File -->
+  <script src="<?php echo e(asset('custom/theme11/assets/js/main.js')); ?>"></script>
+
+</body>
+
+</html><?php /**PATH C:\wamp64\www\WebzFactoryOld\resources\views/card/theme11/index.blade.php ENDPATH**/ ?>
