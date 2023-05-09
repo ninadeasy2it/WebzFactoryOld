@@ -55,8 +55,12 @@
                                                 {{-- <a href="{{$logo.'logodark.png'}}" target="_blank">
                                                     <img id="blah" alt="your image" src="{{$logo.'logo_dark.png'}}" width="150px" class="big-logo">
                                                 </a> --}}
-                                                <a href="{{$logo.(isset($logo_img) && !empty($logo_img)? $logo_img:'logo-dark.png')}}" target="_blank">
+                                                {{--<a href="{{$logo.(isset($logo_img) && !empty($logo_img)? $logo_img:'logo-dark.png')}}" target="_blank">
                                                     <img id="company_logo_update" alt="your image" src="{{$logo.(isset($logo_img) && !empty($logo_img)? $logo_img:'logo-dark.png')}}" width="150px" class="big-logo">
+                                                </a>--}}
+                                                
+                                                <a href="{{$logo.(isset($logo_img) && !empty($logo_img)? $logo_img:'logo-dark.png')}}" target="_blank">
+                                                    <img id="blah" alt="your image" src="{{$logo.(isset($logo_img) && !empty($logo_img)? $logo_img:'logo-dark.png')}}" width="150px" class="big-logo">
                                                 </a>
                                             </div>
                                             <div class="choose-files mt-5">

@@ -34,7 +34,13 @@ if((Session::has('fromTab'))){
     $fromTab='undefined'; 
 }
 
-//var_dump($card_theme);
+
+//var_dump($Subcategory);
+
+
+//var_dump($category_id);
+
+//var_dump($subcategory_id);
 //die;
 ?>
 
@@ -118,6 +124,11 @@ if((Session::has('fromTab'))){
                     <li class="nav-item" role="presentation">
                         <button class="nav-link <?php if($fromTab=='seo-setting'){echo 'active';} ?>" id="seo-setting-tab" data-bs-toggle="pill" data-bs-target="#seo-setting"
                             type="button">{{ __('SEO') }}</button>
+                    </li>
+                    
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link <?php if($fromTab=='file-manager'){echo 'active';} ?>" id="file-manager-tab" data-bs-toggle="pill" data-bs-target="#file-manager"
+                            type="button">File Manager</button>
                     </li>
                 </ul>
             </div>
@@ -275,7 +286,7 @@ if((Session::has('fromTab'))){
                                         
                                     </div>
                                     
-                                        <div class="row mt-4">
+<!--                                        <div class="row mt-4">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <input type="file" name="banner" id="file-1"
@@ -322,7 +333,9 @@ if((Session::has('fromTab'))){
 
                                                     {{-- <img src="{{ !empty($business->logo) ? $logo . '/' . $business->logo : $logo . 'card_logo/' }}"   class="avatar avatar-xl rounded-circle mr-3" id="business_logo" alt="{{ asset('custom/img/logo-placeholder-image-2.png') }}"> --}}
                                             </div>
-                                        </div>
+                                        </div>-->
+                                    
+                                    
                                     <div class="row mt-2">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -1228,14 +1241,24 @@ if((Session::has('fromTab'))){
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-lg-5">
-                            <div class="sticky-top tech-card-body card bg-none card-box preview-height" id="sticky">
-                                <div class="h-100 sfdsafg">
-                                    <!--  <iframe  class="w-100 h-1050" frameborder="0" src="{{ url('business/preview/card', $business->id) }}"></iframe> -->
-                                    @include('card.' . $card_theme->theme . '.index')
-                                </div>
+                            <!--  <iframe  class="w-100 h-1050" frameborder="0" src="{{ url('business/preview/card', $business->id) }}"></iframe> -->
+                            <div class="card bg-none card-box ">
+                                <img src="{{ asset(Storage::url('uploads/card_theme/theme1/color1.png')) }}"
+                                    class="img-fluid img-center w-75 theme_preview_img">
                             </div>
                         </div>
+                        
+                        
+<!--                        <div class="col-lg-5">
+                            <div class="sticky-top tech-card-body card bg-none card-box preview-height" id="sticky">
+                                <div class="h-100 sfdsafg">
+                                      <iframe  class="w-100 h-1050" frameborder="0" src="{{ url('business/preview/card', $business->id) }}"></iframe> 
+                                    include('card.' . $card_theme->theme . '.index')
+                                </div>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="tab-pane fade <?php if($fromTab=='domain-setting'){echo 'active show';} ?>" id="domain-setting" role="tabpanel" aria-labelledby="pills-user-tab-3">
@@ -1704,6 +1727,80 @@ if((Session::has('fromTab'))){
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    <div class="tab-pane fade <?php if($fromTab=='file-manager'){echo 'active show';} ?>" id="file-manager" role="tabpanel" aria-labelledby="pills-user-tab-5">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        
+                                        <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+<!--                                        {{ Form::open(['route' => ['business.seo-setting', $business->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+                                        <div class="card-body">
+                                            <div class="">
+                                                <div class="row mt-2 mb-5">
+                                                    <div class="col-12">
+                                                        {{ Form::label('meta_keyword', __('Meta Keywords'), ['class' => 'form-label']) }}
+                                                        {{ Form::text('meta_keyword', $business->meta_keyword, ['class' => 'form-control', 'rows' => '3', 'placeholder' => __('Enter Meta Keywords')]) }}
+                                                        @error('metakeywords')
+                                                            <span class="invalid-favicon text-xs text-danger"
+                                                                role="alert">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2 mb-5">
+                                                    <div class="col-12">
+                                                        {{ Form::label('meta_description', __('Meta Description'), ['class' => 'form-label']) }}
+                                                        {{ Form::textarea('meta_description', $business->meta_description, ['class' => 'form-control', 'rows' => '3', 'placeholder' => __('Enter Meta Description')]) }}
+                                                        @error('meta_description')
+                                                            <span class="invalid-favicon text-xs text-danger"
+                                                                role="alert">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2 mb-5">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <i class="fab fa-google" aria-hidden="true"></i>
+                                                            {{ Form::label('google_analytic', __('Google Analytic'), ['class' => 'form-label']) }}
+                                                            {{ Form::text('google_analytic', $business->google_analytic, ['class' => 'form-control', 'placeholder' => 'UA-XXXXXXXXX-X']) }}
+                                                            @error('google_analytic')
+                                                                <span class="invalid-google_analytic" role="alert">
+                                                                    <strong class="text-danger">{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                                            {{ Form::label('facebook_pixel_code', __('Facebook Pixel'), ['class' => 'form-label']) }}
+                                                            {{ Form::text('fbpixel_code', $business->fbpixel_code, ['class' => 'form-control', 'placeholder' => 'UA-0000000-0']) }}
+                                                            @error('facebook_pixel_code')
+                                                                <span class="invalid-google_analytic" role="alert">
+                                                                    <strong class="text-danger">{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <div class="col-12">
+                                                <button type="submit"
+                                                    class="btn btn-primary me-2 float-end">{{ __('Save Changes') }}</button>
+                                            </div>
+                                        </div><br><br>
+                                        {{ Form::close() }}-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
                 </div>  
             </div>
         </div>
@@ -2379,7 +2476,8 @@ if((Session::has('fromTab'))){
             var url_link = `{{ url("/") }}/${slug}`;
             $(`.qr-link`).text(url_link);
             $('.qrcode').qrcode(url_link);
-            console.log($('.qrcode').qrcode(url_link));
+            
+//            console.log($('.qrcode').qrcode(url_link));
             
             
             get_business_Subcategory(edit_category_id);
@@ -2402,13 +2500,21 @@ if((Session::has('fromTab'))){
         });
         
         
-        function get_business_Subcategory(id){
+        function get_business_Subcategory(category_id){
 //            alert(id);
-            var SubCategory = $("#category_id").val();    
+            
+             
+            
+//            var CategoryVal = $("#category_id").val();    
             var jsonArr = [{ id: '', text: 'Select a Occupation Subcategory' }];
             for(var key in SubcategoryArr) {
                 for (var key1 in SubcategoryArr[key]) {
-                    if(SubcategoryArr[key][key1].category_id==SubCategory){   
+                    
+                    
+                    if(SubcategoryArr[key][key1].category_id==category_id){   
+                        
+//                         console.log(jsonArr);
+                        
                         jsonArr.push({
                             id: SubcategoryArr[key][key1].subcategory_id,
                             text: SubcategoryArr[key][key1].name,

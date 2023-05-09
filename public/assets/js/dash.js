@@ -5,9 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
   feather.replace();
   // feather icon end
   // remove pre-loader start
-  setTimeout(function () {
-    document.querySelector(".loader-bg").remove();
-  }, 400);
+  
+//  setTimeout(function () {
+//    document.querySelector(".loader-bg").remove();
+//  }, 400);
 
 // onload=function() {
 //     document.querySelectorAll("li[id^='uploadNameSpan']")[0].remove();

@@ -64,7 +64,12 @@
     });
   }
 
-  var custthemebg = document.querySelector("#cust-theme-bg");
+  var custthemebg = document.querySelector("#cust-theme-bg")!== null;
+  
+  if(custthemebg){
+      
+      var custthemebg = document.querySelector("#cust-theme-bg");
+      
   custthemebg.addEventListener("click", function () {
     if (custthemebg.checked) {
       document.querySelector(".dash-sidebar").classList.add("transprent-bg");
@@ -78,6 +83,10 @@
         .classList.remove("transprent-bg");
     }
   });
+  
+  }
+  
+  
   function removeClassByPrefix(node, prefix) {
     for (let i = 0; i < node.classList.length; i++) {
       let value = node.classList[i];

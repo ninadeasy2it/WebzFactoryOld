@@ -33,7 +33,13 @@ if((Session::has('fromTab'))){
     $fromTab='undefined'; 
 }
 
-//var_dump($card_theme);
+
+//var_dump($Subcategory);
+
+
+//var_dump($category_id);
+
+//var_dump($subcategory_id);
 //die;
 ?>
 
@@ -114,6 +120,11 @@ if((Session::has('fromTab'))){
                     <li class="nav-item" role="presentation">
                         <button class="nav-link <?php if($fromTab=='seo-setting'){echo 'active';} ?>" id="seo-setting-tab" data-bs-toggle="pill" data-bs-target="#seo-setting"
                             type="button"><?php echo e(__('SEO')); ?></button>
+                    </li>
+                    
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link <?php if($fromTab=='file-manager'){echo 'active';} ?>" id="file-manager-tab" data-bs-toggle="pill" data-bs-target="#file-manager"
+                            type="button">File Manager</button>
                     </li>
                 </ul>
             </div>
@@ -291,7 +302,7 @@ unset($__errorArgs, $__bag); ?>
                                         
                                     </div>
                                     
-                                        <div class="row mt-4">
+<!--                                        <div class="row mt-4">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <input type="file" name="banner" id="file-1"
@@ -352,7 +363,9 @@ unset($__errorArgs, $__bag); ?>
 
                                                     
                                             </div>
-                                        </div>
+                                        </div>-->
+                                    
+                                    
                                     <div class="row mt-2">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -1311,14 +1324,24 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-lg-5">
-                            <div class="sticky-top tech-card-body card bg-none card-box preview-height" id="sticky">
-                                <div class="h-100 sfdsafg">
-                                    <!--  <iframe  class="w-100 h-1050" frameborder="0" src="<?php echo e(url('business/preview/card', $business->id)); ?>"></iframe> -->
-                                    <?php echo $__env->make('card.' . $card_theme->theme . '.index', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </div>
+                            <!--  <iframe  class="w-100 h-1050" frameborder="0" src="<?php echo e(url('business/preview/card', $business->id)); ?>"></iframe> -->
+                            <div class="card bg-none card-box ">
+                                <img src="<?php echo e(asset(Storage::url('uploads/card_theme/theme1/color1.png'))); ?>"
+                                    class="img-fluid img-center w-75 theme_preview_img">
                             </div>
                         </div>
+                        
+                        
+<!--                        <div class="col-lg-5">
+                            <div class="sticky-top tech-card-body card bg-none card-box preview-height" id="sticky">
+                                <div class="h-100 sfdsafg">
+                                      <iframe  class="w-100 h-1050" frameborder="0" src="<?php echo e(url('business/preview/card', $business->id)); ?>"></iframe> 
+                                    include('card.' . $card_theme->theme . '.index')
+                                </div>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="tab-pane fade <?php if($fromTab=='domain-setting'){echo 'active show';} ?>" id="domain-setting" role="tabpanel" aria-labelledby="pills-user-tab-3">
@@ -1891,6 +1914,117 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    <div class="tab-pane fade <?php if($fromTab=='file-manager'){echo 'active show';} ?>" id="file-manager" role="tabpanel" aria-labelledby="pills-user-tab-5">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        
+                                        <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+<!--                                        <?php echo e(Form::open(['route' => ['business.seo-setting', $business->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])); ?>
+
+                                        <div class="card-body">
+                                            <div class="">
+                                                <div class="row mt-2 mb-5">
+                                                    <div class="col-12">
+                                                        <?php echo e(Form::label('meta_keyword', __('Meta Keywords'), ['class' => 'form-label'])); ?>
+
+                                                        <?php echo e(Form::text('meta_keyword', $business->meta_keyword, ['class' => 'form-control', 'rows' => '3', 'placeholder' => __('Enter Meta Keywords')])); ?>
+
+                                                        <?php $__errorArgs = ['metakeywords'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                            <span class="invalid-favicon text-xs text-danger"
+                                                                role="alert"><?php echo e($message); ?></span>
+                                                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2 mb-5">
+                                                    <div class="col-12">
+                                                        <?php echo e(Form::label('meta_description', __('Meta Description'), ['class' => 'form-label'])); ?>
+
+                                                        <?php echo e(Form::textarea('meta_description', $business->meta_description, ['class' => 'form-control', 'rows' => '3', 'placeholder' => __('Enter Meta Description')])); ?>
+
+                                                        <?php $__errorArgs = ['meta_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                            <span class="invalid-favicon text-xs text-danger"
+                                                                role="alert"><?php echo e($message); ?></span>
+                                                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2 mb-5">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <i class="fab fa-google" aria-hidden="true"></i>
+                                                            <?php echo e(Form::label('google_analytic', __('Google Analytic'), ['class' => 'form-label'])); ?>
+
+                                                            <?php echo e(Form::text('google_analytic', $business->google_analytic, ['class' => 'form-control', 'placeholder' => 'UA-XXXXXXXXX-X'])); ?>
+
+                                                            <?php $__errorArgs = ['google_analytic'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                                <span class="invalid-google_analytic" role="alert">
+                                                                    <strong class="text-danger"><?php echo e($message); ?></strong>
+                                                                </span>
+                                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                                            <?php echo e(Form::label('facebook_pixel_code', __('Facebook Pixel'), ['class' => 'form-label'])); ?>
+
+                                                            <?php echo e(Form::text('fbpixel_code', $business->fbpixel_code, ['class' => 'form-control', 'placeholder' => 'UA-0000000-0'])); ?>
+
+                                                            <?php $__errorArgs = ['facebook_pixel_code'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                                <span class="invalid-google_analytic" role="alert">
+                                                                    <strong class="text-danger"><?php echo e($message); ?></strong>
+                                                                </span>
+                                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <div class="col-12">
+                                                <button type="submit"
+                                                    class="btn btn-primary me-2 float-end"><?php echo e(__('Save Changes')); ?></button>
+                                            </div>
+                                        </div><br><br>
+                                        <?php echo e(Form::close()); ?>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
                 </div>  
             </div>
         </div>
@@ -2561,7 +2695,8 @@ unset($__errorArgs, $__bag); ?>
             var url_link = `<?php echo e(url("/")); ?>/${slug}`;
             $(`.qr-link`).text(url_link);
             $('.qrcode').qrcode(url_link);
-            console.log($('.qrcode').qrcode(url_link));
+            
+//            console.log($('.qrcode').qrcode(url_link));
             
             
             get_business_Subcategory(edit_category_id);
@@ -2584,13 +2719,21 @@ unset($__errorArgs, $__bag); ?>
         });
         
         
-        function get_business_Subcategory(id){
+        function get_business_Subcategory(category_id){
 //            alert(id);
-            var SubCategory = $("#category_id").val();    
+            
+             
+            
+//            var CategoryVal = $("#category_id").val();    
             var jsonArr = [{ id: '', text: 'Select a Occupation Subcategory' }];
             for(var key in SubcategoryArr) {
                 for (var key1 in SubcategoryArr[key]) {
-                    if(SubcategoryArr[key][key1].category_id==SubCategory){   
+                    
+                    
+                    if(SubcategoryArr[key][key1].category_id==category_id){   
+                        
+//                         console.log(jsonArr);
+                        
                         jsonArr.push({
                             id: SubcategoryArr[key][key1].subcategory_id,
                             text: SubcategoryArr[key][key1].name,

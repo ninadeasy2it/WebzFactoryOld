@@ -1253,11 +1253,11 @@ class Utility extends Model {
 //                         var_dump($path);
 //                        die;
                         
-                        $path = \Storage::disk('public_storage')->putFileAs(
-                                $path,
-                                $file,
-                                $name
-                        );// upload ninad added
+//                        $path1 = \Storage::disk('public_storage')->putFileAs(
+//                                $path,
+//                                $file,
+//                                $name
+//                        );// upload ninad added
                         
 //                         Storage::disk('public_new')->put('user_images/square' . '/' . $ImageName, $img, 'public');
                         
@@ -1415,11 +1415,11 @@ class Utility extends Model {
 
                     if ($settings['storage_setting'] == 'local') {
                         
-                        $path = \Storage::disk('public_storage')->putFileAs(
-                                $path,
-                                $request->file($data_name)[$data_key][$key_name],
-                                $name
-                        );// upload ninad added
+//                        $path1 = \Storage::disk('public_storage')->putFileAs(
+//                                $path,
+//                                $request->file($data_name)[$data_key][$key_name],
+//                                $name
+//                        );// upload ninad added
 
                         \Storage::disk()->putFileAs(
                                 $path,
