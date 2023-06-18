@@ -349,6 +349,8 @@ class BusinessController extends Controller {
            
             }else{
             
+                $user = User::where('id', $business->created_by)->first(); 
+                
                 $count = Business::where('id', $business->id)->where('created_by', \Auth::user()->id)->count();
                 if ($count == 0) {
                     return redirect()->route('business.index')->with('error', __('This card number is not yours.'));
@@ -918,7 +920,13 @@ class BusinessController extends Controller {
 //        var_dump('Ninad');
         
         if (!\Auth::check()) {
-            $visit = visitor()->visit($slug);
+//                            $visit = visitor()->visit($slug);
+                        $visit = visitor()->visit(null);
+            
+//              var_dump($visit);
+//              die;
+
+            
             $visit_data = \DB::table('visitor')->where('slug', $visit->slug)->get();
             foreach ($visit_data as $key => $value) {
                 $busi_data = Business::where('slug', $value->slug)->first();

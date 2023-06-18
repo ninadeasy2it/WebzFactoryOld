@@ -3,20 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/settings/admin_settings.blade.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Http/Middleware/CheckPlan.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/routes/web.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Models/Utility.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Http/Kernel.php</file>
             <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/partials/admin/footer.blade.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/config/lfm.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/.env</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/layouts/auth.blade.php</file>
             <file>file:/C:/wamp64/www/WebzFactoryOld/app/Http/Controllers/BusinessController.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/config/filesystems.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/settings/index.blade.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Http/Controllers/SystemController.php</file>
-            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Http/Middleware/XSS.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/auth/register.blade.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/business/edit.blade.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/vendor/laravel/framework/src/Illuminate/Contracts/Foundation/Application.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/vendor/shetabit/visitor/src/Visitor.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Http/Controllers/Auth/RegisteredUserController.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/vendor/shetabit/visitor/src/Models/Visit.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/layouts/auth.blade.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/app/Models/Business.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/resources/views/auth/login.blade.php</file>
+            <file>file:/C:/wamp64/www/WebzFactoryOld/routes/web.php</file>
         </group>
     </open-files>
 </project-private>

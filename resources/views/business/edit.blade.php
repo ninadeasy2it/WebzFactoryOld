@@ -227,7 +227,7 @@ if((Session::has('fromTab'))){
                                                        {{ __('Banner') }}
                                                     </a>
                                                   </span>
-                                                    <input id="thumbnail" class="form-control" type="text" name="banner_new" style="display:none;">
+                                                    <input id="thumbnail" class="form-control" type="text" name="banner_new" style="display:none;" value="{{ !empty($business->banner_new) ? $banner_new . '/' . $business->banner_new : $banner_new   }}">
                                                 </div>
                                                 @error('banner')
                                                     <span class="invalid-favicon text-xs text-danger"
@@ -259,7 +259,7 @@ if((Session::has('fromTab'))){
                                                        {{ __('Logo') }}
                                                     </a>
                                                   </span>
-                                                    <input id="thumbnail1" class="form-control" type="text" name="logo_new" style="display:none;">
+                                                    <input id="thumbnail1" class="form-control" type="text" name="logo_new" style="display:none;" value="{{ !empty($business->logo_new) ? $logo_new . '/' . $business->logo_new : $logo_new   }}">
                                                     <input type="hidden" name="business_id"
                                                             value="{{ $business->id }}">
                                                 </div>
@@ -277,7 +277,7 @@ if((Session::has('fromTab'))){
                                                 <img src="{{ isset($business->logo_new) && !empty($business->logo_new) ? $logo_new . '/' . $business->logo_new  : asset('custom/img/logo-placeholder-image-2.png') }}"
                                                     class="avatar avatar-xl rounded-circle mr-3" id="business_logo">
 
-                                                    {{-- <img src="{{ !empty($business->logo_new) ? $logo_new . '/' . $business->logo_new : $logo_new  }}"   class="avatar avatar-xl rounded-circle mr-3" id="business_logo" alt="{{ asset('custom/img/logo-placeholder-image-2.png') }}"> --}}
+                                                    {{-- <img src="{{ !empty($business->logo_new) ? $logo_new . '/' . $business->logo_new : $logo_new  }}"  class="avatar avatar-xl rounded-circle mr-3" id="business_logo" alt="{{ asset('custom/img/logo-placeholder-image-2.png') }}"> --}}
                                             
                                                 
                                                  
@@ -1735,7 +1735,7 @@ if((Session::has('fromTab'))){
                                 <div class="col-lg-12">
                                     <div class="card">
                                         
-                                        <iframe src="/filemanager" style="width: 100%; height: 600px; overflow: hidden; border: none;"></iframe>
+                                        <iframe src="/filemanager?type=image" style="width: 100%; height: 600px; overflow: hidden; border: none;"></iframe>
 <!--                                        {{ Form::open(['route' => ['business.seo-setting', $business->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
                                         <div class="card-body">
                                             <div class="">

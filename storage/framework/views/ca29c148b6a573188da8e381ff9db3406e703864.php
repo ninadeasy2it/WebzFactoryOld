@@ -228,7 +228,7 @@ if((Session::has('fromTab'))){
 
                                                     </a>
                                                   </span>
-                                                    <input id="thumbnail" class="form-control" type="text" name="banner_new" style="display:none;">
+                                                    <input id="thumbnail" class="form-control" type="text" name="banner_new" style="display:none;" value="<?php echo e(!empty($business->banner_new) ? $banner_new . '/' . $business->banner_new : $banner_new); ?>">
                                                 </div>
                                                 <?php $__errorArgs = ['banner'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -268,7 +268,7 @@ unset($__errorArgs, $__bag); ?>
 
                                                     </a>
                                                   </span>
-                                                    <input id="thumbnail1" class="form-control" type="text" name="logo_new" style="display:none;">
+                                                    <input id="thumbnail1" class="form-control" type="text" name="logo_new" style="display:none;" value="<?php echo e(!empty($business->logo_new) ? $logo_new . '/' . $business->logo_new : $logo_new); ?>">
                                                     <input type="hidden" name="business_id"
                                                             value="<?php echo e($business->id); ?>">
                                                 </div>
@@ -1922,7 +1922,7 @@ unset($__errorArgs, $__bag); ?>
                                 <div class="col-lg-12">
                                     <div class="card">
                                         
-                                        <iframe src="/filemanager" style="width: 100%; height: 600px; overflow: hidden; border: none;"></iframe>
+                                        <iframe src="/filemanager?type=image" style="width: 100%; height: 600px; overflow: hidden; border: none;"></iframe>
 <!--                                        <?php echo e(Form::open(['route' => ['business.seo-setting', $business->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])); ?>
 
                                         <div class="card-body">
